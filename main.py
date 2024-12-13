@@ -58,6 +58,16 @@ class Snake(GameObject):
         head_x, head_y = self.positions[0]
         new_head = (head_x + self.direction[0], head_y + self.direction[1])
 
+        # Проверяем на выход за границы и телепортируем змейку
+        if new_head[0] < 0:
+            new_head = (WIDTH - GRID_SIZE, new_head[1])
+        elif new_head[0] >= WIDTH:
+            new_head = (0, new_head[1])
+        if new_head[1] < 0:
+            new_head = (new_head[0], HEIGHT - GRID_SIZE)
+        elif new_head[1] >= HEIGHT:
+            new_head = (new_head[0], 0)
+
         self.positions.insert(0, new_head)
         if len(self.positions) > self.length:
             self.positions.pop()
